@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Pagination from '../components/ pagination';
 import SearchBar from '../components/searchBar';
 
-type Post = {
+export type Post = {
   id: number;
   userId: number;
   title: string;
