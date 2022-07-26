@@ -17,6 +17,7 @@ export default function AllPost() {
   const [postLimit, setPostLimit] = useState(20);
   const start = (page - 1) * postLimit;
   const end = start + postLimit;
+  const postLimitOptions = [10, 20, 50, 100];
 
   useEffect(() => {
     axios
@@ -32,10 +33,23 @@ export default function AllPost() {
   function handlePostClick(post: Post) {
     nav('/post', { state: post });
   }
+
+  function handlePostLimitOption(e: React.ChangeEvent<HTMLSelectElement>) {
+    setPostLimit(Number(e.target.value));
+  }
   
   return (
     <div>
       <h1>전체 게시판</h1>
+
+      <div>
+        <select onChange={(e)=>handlePostLimitOption(e)}>
+          {postLimitOptions.map((value, idx) => (
+            <option key={idx}>{value}</option>
+          ))}
+        </select>
+      </div>
+
       <ul>
         {posts.slice(start, end).map(post => (
           <li key={post.id}>
