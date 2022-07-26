@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Pagination from '../components/ pagination';
 import SearchBar from '../components/searchBar';
 
-type Post = {
+export type Post = {
   id: number;
   userId: number;
   title: string;
@@ -56,7 +56,7 @@ export default function AllPost() {
   }, [filteredPosts, postLimit]);
 
   function handlePostClick(post: Post) {
-    nav('/post', { state: post });
+    nav('/detailPost', { state: post });
   }
 
   function handlePostLimitOption(e: React.ChangeEvent<HTMLSelectElement>) {

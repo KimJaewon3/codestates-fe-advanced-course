@@ -3,14 +3,14 @@ import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AllPost from './pages/allPost';
-import Post from './pages/post';
+import DetailPost from './pages/detailPost';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<AllPost/>} />
-        <Route path='/post' element={<Post/>} />
+        <Route path='/detailPost' element={<DetailPost/>} />
       </Routes>
     </BrowserRouter>
   );
