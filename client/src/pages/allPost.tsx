@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Pagination from '../components/ pagination';
+import SearchBar from '../components/searchBar';
 
 type Post = {
   id: number;
@@ -10,14 +11,26 @@ type Post = {
   body: string;
 }
 
+export type SearchValue = {
+  target: 'userId' | 'title';
+  value: string;
+}
+
 export default function AllPost() {
   const nav = useNavigate();
   const [posts, setPosts] = useState<Post[]>([]);
+  const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
+
   const [page, setPage] = useState(1);
-  const [postLimit, setPostLimit] = useState(20);
+  const postLimitOptions = [10, 20, 50, 100];
+  const [postLimit, setPostLimit] = useState(10);
   const start = (page - 1) * postLimit;
   const end = start + postLimit;
-  const postLimitOptions = [10, 20, 50, 100];
+
+  const [searchValue, setSearchValue] = useState<SearchValue>({
+    target: 'userId',
+    value: '',
+  });
 
   useEffect(() => {
     axios
@@ -30,6 +43,18 @@ export default function AllPost() {
       });
   }, []);
 
+  useEffect(() => {
+    setFilteredPosts(
+      posts.filter(post => {
+        return String(post[searchValue.target]).includes(searchValue.value);
+      })
+    );
+  }, [posts, searchValue]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [filteredPosts, postLimit]);
+
   function handlePostClick(post: Post) {
     nav('/post', { state: post });
   }
@@ -37,13 +62,15 @@ export default function AllPost() {
   function handlePostLimitOption(e: React.ChangeEvent<HTMLSelectElement>) {
     setPostLimit(Number(e.target.value));
   }
-  
+
   return (
     <div>
       <h1>전체 게시판</h1>
 
+      <SearchBar searchValue={searchValue} setSearchValue={setSearchValue}/>
+
       <div>
-        <select onChange={(e)=>handlePostLimitOption(e)}>
+        <select onChange={(e) => handlePostLimitOption(e)}>
           {postLimitOptions.map((value, idx) => (
             <option key={idx}>{value}</option>
           ))}
@@ -51,15 +78,16 @@ export default function AllPost() {
       </div>
 
       <ul>
-        {posts.slice(start, end).map(post => (
+        {filteredPosts.slice(start, end).map(post => (
           <li key={post.id}>
             <p onClick={() => handlePostClick(post)}>{post.title}</p>
             <p>작성자 {post.userId}</p>
           </li>
         ))}
       </ul>
+
       <Pagination 
-        contentsCount={posts.length}
+        contentsCount={filteredPosts.length}
         postLimit={postLimit}
         setPage={setPage}
         page={page}

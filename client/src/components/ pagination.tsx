@@ -19,15 +19,15 @@ export default function Pagination({ contentsCount, postLimit, page, setPage }: 
     <div>
       <ul>
         <li>
-          <button onClick={()=>changePage(page - 1)}>pre</button>
+          <button onClick={() => changePage(page - 1)}>pre</button>
         </li>
         {pageCount.map((_, idx) => (
           <li key={idx}>
-            <button onClick={()=>changePage(idx + 1)}>{idx + 1}</button>
+            <button onClick={() => changePage(idx + 1)}>{idx + 1}</button>
           </li>
         ))}
         <li>
-          <button onClick={()=>changePage(page + 1)}>next</button>
+          <button onClick={() => changePage(page + 1)}>next</button>
         </li>
       </ul>
     </div>
