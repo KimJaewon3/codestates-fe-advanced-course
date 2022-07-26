@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Post } from './allPost';
 
-type PostInfo = {
+type Comments = {
   id: number;
   postId: number;
   name: string;
@@ -13,26 +13,27 @@ type PostInfo = {
 
 export default function DetailPost() {
   const location = useLocation();
-  const post = location.state as Post;
-  const [comments, setComments] = useState<PostInfo[]>([]);
+  const currentPost = location.state as Post;
+  const [comments, setComments] = useState<Comments[]>([]);
 
   useEffect(() => {
     axios
-      .get(`https://jsonplaceholder.typicode.com/comments?postId=${post.id}`)
+      .get(`https://jsonplaceholder.typicode.com/comments?postId=${currentPost.id}`)
       .then(res => {
-        console.log(post)
-        console.log(res.data)
         setComments(res.data);
       })
+      .catch(err => {
+        console.log(err.message);
+      });
   }, []);
   
   return (
     <div>
-      <h2>{post.title}</h2>
-      <p>작성자 {post.userId}</p>
+      <h2>{currentPost.title}</h2>
+      <p>작성자 {currentPost.userId}</p>
       <hr/>
 
-      <p>{post.body}</p>
+      <p>{currentPost.body}</p>
       <hr/>
 
       <div>

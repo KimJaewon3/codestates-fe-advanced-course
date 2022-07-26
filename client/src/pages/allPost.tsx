@@ -56,7 +56,7 @@ export default function AllPost() {
   }, [filteredPosts, postLimit]);
 
   function handlePostClick(post: Post) {
-    nav('/post', { state: post });
+    nav('/detailPost', { state: post });
   }
 
   function handlePostLimitOption(e: React.ChangeEvent<HTMLSelectElement>) {

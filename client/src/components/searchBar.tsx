@@ -7,8 +7,7 @@ type Props = {
 }
 
 export default function SearchBar({ searchValue, setSearchValue }: Props) {
-  const [inputValue, setInputValue] = useState('');
-  const searchTargets = ['userId', 'title'];
+  const searchTargets = ['title', 'userId'];
 
   function handleSearchOption(e: React.ChangeEvent<HTMLSelectElement>) {
     if (e.target.value !== 'userId' && e.target.value !== 'title') return;
@@ -20,7 +19,6 @@ export default function SearchBar({ searchValue, setSearchValue }: Props) {
   }
 
   function handleSearchValue(e: React.ChangeEvent<HTMLInputElement>) {
-    setInputValue(e.target.value);
     setSearchValue({
       ...searchValue,
       value: e.target.value,
@@ -35,7 +33,7 @@ export default function SearchBar({ searchValue, setSearchValue }: Props) {
         ))}
       </select>
 
-      <input onChange={(e) => handleSearchValue(e)} value={inputValue}></input>
+      <input onChange={(e) => handleSearchValue(e)} ></input>
     </div>
   );
 }
