@@ -11,7 +11,7 @@ export default function UserInfoModal({ target, setIsUserInfoModalOpen }: Props)
 
   return (
     <StyledUserInfoModal>
-      <div>
+      <div className='modal-content'>
         <p>닉네임: {target.username}</p>
         <p>이름: {target.name}</p>
         <p>사이트 주소: {target.website}</p>
@@ -24,7 +24,14 @@ export default function UserInfoModal({ target, setIsUserInfoModalOpen }: Props)
 }
 
 const StyledUserInfoModal = styled.div`
-  position: absolute;
+  margin-left: 1em;
+  .modal-content {
+    position: absolute;
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid black;
+    padding: 0.5em;
+  }
   .modal-background {
     position: fixed;
     top: 0;
@@ -34,4 +41,4 @@ const StyledUserInfoModal = styled.div`
     background-color: white;
     opacity: 0;
   }
-`
+`;

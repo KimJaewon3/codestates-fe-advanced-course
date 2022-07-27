@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { SearchValue } from '../pages/allPost';
 
 type Props = {
@@ -26,7 +27,7 @@ export default function SearchBar({ searchValue, setSearchValue }: Props) {
   }
 
   return (
-    <div>
+    <StyledSearchBar>
       <select onChange={(e) => handleSearchOption(e)}>
         {searchTargets.map((value, idx) => (
           <option key={idx}>{value}</option>
@@ -34,6 +35,12 @@ export default function SearchBar({ searchValue, setSearchValue }: Props) {
       </select>
 
       <input onChange={(e) => handleSearchValue(e)} ></input>
-    </div>
+    </StyledSearchBar>
   );
 }
+
+const StyledSearchBar = styled.div`
+  select {
+    padding: 1px;
+  }
+`;

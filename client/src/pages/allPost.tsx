@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import Pagination from '../components/ pagination';
 import SearchBar from '../components/searchBar';
 
@@ -32,7 +33,7 @@ export default function AllPost() {
 
   // search
   const [searchValue, setSearchValue] = useState<SearchValue>({
-    target: 'userId',
+    target: 'title',
     value: '',
   });
 
@@ -68,27 +69,40 @@ export default function AllPost() {
   }
 
   return (
-    <div>
+    <StyledAllPost>
       <h1>전체 게시판</h1>
 
-      <SearchBar searchValue={searchValue} setSearchValue={setSearchValue}/>
+      <div className='all-post-menu'>
+        <SearchBar searchValue={searchValue} setSearchValue={setSearchValue}/>
 
-      <div>
-        <select onChange={(e) => handlePostLimitOption(e)}>
-          {postLimitOptions.map((value, idx) => (
-            <option key={idx}>{value}</option>
-          ))}
-        </select>
+        <label>
+          페이지당 게시글 수
+          <select onChange={(e) => handlePostLimitOption(e)}>
+            {postLimitOptions.map((value, idx) => (
+              <option key={idx}>{value}</option>
+            ))}
+          </select>
+        </label>
       </div>
-
-      <ul>
-        {filteredPosts.slice(start, end).map(post => (
-          <li key={post.id}>
-            <p onClick={() => handlePostClick(post)}>{post.title}</p>
-            <p>작성자 {post.userId}</p>
-          </li>
-        ))}
-      </ul>
+      
+      <div className='all-post-post-table'>
+        <table>
+          <thead>
+            <tr>
+              <th>제목</th>
+              <th>작성자</th>
+            </tr>
+          </thead>
+          {filteredPosts.slice(start, end).map(post => (
+            <tbody key={post.id}>
+              <tr>
+                <td onClick={() => handlePostClick(post)}>{post.title}</td>
+                <td>작성자 {post.userId}</td>
+              </tr>
+            </tbody>
+          ))}
+        </table>
+      </div>
 
       <Pagination 
         contentsCount={filteredPosts.length}
@@ -96,6 +110,52 @@ export default function AllPost() {
         setPage={setPage}
         page={page}
       />
-    </div>
+    </StyledAllPost>
   );
 }
+
+const StyledAllPost = styled.div`
+  h1 {
+    text-align: center;
+  }
+  .all-post-menu {
+    display: flex;
+    justify-content: space-between;
+    margin: 100px 0 20px 0;
+    label {
+      font-size: small;
+      select {
+        padding: 1px;
+      }
+    }
+  }
+  .all-post-post-table {
+    margin: 20px 0 40px 0;
+    height: 60vh;
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+    ::-webkit-scrollbar-thumb{
+      height: 30%;
+      background-color: black;
+      border-radius: 10px;    
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      tr {
+        border-bottom: 1px solid #c2c2c2;
+        th, td {
+          padding: 10px;
+        }
+        td:first-child {
+          width: 90%;
+        }
+        td:last-child {
+          text-align: center;
+        }
+      }
+    }
+  }
+`;

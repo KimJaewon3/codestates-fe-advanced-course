@@ -1,19 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AllPost from './pages/allPost';
 import DetailPost from './pages/detailPost';
+import styled from 'styled-components';
 
-function App() {
+export default function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<AllPost/>} />
-        <Route path='/detailPost' element={<DetailPost/>} />
-      </Routes>
+      <StyledSection>
+        <Routes>
+          <Route path='/' element={<AllPost/>} />
+          <Route path='/detailPost' element={<DetailPost/>} />
+        </Routes>
+      </StyledSection>
     </BrowserRouter>
   );
 }
 
-export default App;
+const StyledSection = styled.section`
+  margin: 0 20vw 0 20vw;
+`;
