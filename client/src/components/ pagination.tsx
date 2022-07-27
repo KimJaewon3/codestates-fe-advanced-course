@@ -1,4 +1,6 @@
 import React from 'react';
+import styled from 'styled-components';
+import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle } from "react-icons/io";
 
 type Props = {
   contentsCount: number;
@@ -9,27 +11,54 @@ type Props = {
 
 export default function Pagination({ contentsCount, postLimit, page, setPage }: Props) {
   const pageCount = new Array(Math.ceil(contentsCount / postLimit)).fill(false);
-
+  
   function changePage(pageNumber: number) {
     if (pageNumber <= 0 || pageNumber > pageCount.length) return;
     setPage(pageNumber);
   }
   
   return (
-    <div>
-      <ul>
-        <li>
-          <button onClick={() => changePage(page - 1)}>pre</button>
-        </li>
-        {pageCount.map((_, idx) => (
-          <li key={idx}>
-            <button onClick={() => changePage(idx + 1)}>{idx + 1}</button>
-          </li>
-        ))}
-        <li>
-          <button onClick={() => changePage(page + 1)}>next</button>
-        </li>
-      </ul>
-    </div>
+    <StyledPagenation>
+      <nav>
+        <ul>
+          <StyledLi>
+            <IoIosArrowDropleftCircle size={25} onClick={() => changePage(page - 1)}/>
+          </StyledLi>
+          {pageCount.map((_, idx) => (
+            <StyledLi key={idx}>
+              <button onClick={() => changePage(idx + 1)}>{idx + 1}</button>
+            </StyledLi>
+          ))}
+          <StyledLi>
+            <IoIosArrowDroprightCircle size={25} onClick={() => changePage(page + 1)}/>
+          </StyledLi>
+        </ul>
+      </nav>
+    </StyledPagenation>
   );
 }
+
+const StyledPagenation = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    button {
+      border: none;
+      border-radius: 50%;
+    }
+  }
+  svg {
+    display: block;
+  }
+`;
+
+const StyledLi = styled.li`
+  float: left;
+  & + & {
+    margin-left: 20px;
+  }
+`;
