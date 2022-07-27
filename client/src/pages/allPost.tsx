@@ -18,15 +18,19 @@ export type SearchValue = {
 
 export default function AllPost() {
   const nav = useNavigate();
+  
+  // posts
   const [posts, setPosts] = useState<Post[]>([]);
   const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
 
+  // pagination
   const [page, setPage] = useState(1);
   const postLimitOptions = [10, 20, 50, 100];
   const [postLimit, setPostLimit] = useState(10);
   const start = (page - 1) * postLimit;
   const end = start + postLimit;
 
+  // search
   const [searchValue, setSearchValue] = useState<SearchValue>({
     target: 'userId',
     value: '',
