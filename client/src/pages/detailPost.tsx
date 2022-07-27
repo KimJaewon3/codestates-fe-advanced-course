@@ -58,7 +58,10 @@ export default function DetailPost() {
           {isUserInfoModalOpen ? (
             <div>
               <p>down</p>
-              <UserInfoModal target={userInfo.filter(info => info.id === currentPost.userId)[0]}/>
+              <UserInfoModal 
+                target={userInfo.filter(info => info.id === currentPost.userId)[0]}
+                setIsUserInfoModalOpen={setIsUserInfoModalOpen}
+              />
             </div>
           ) : (
             <div>
