@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/codestates-fe-advanced-course/static/css/main.1dbfd76b.css",
+    "main.js": "/codestates-fe-advanced-course/static/js/main.25fd99cb.js",
+    "static/js/787.c4e7f8f9.chunk.js": "/codestates-fe-advanced-course/static/js/787.c4e7f8f9.chunk.js",
+    "index.html": "/codestates-fe-advanced-course/index.html",
+    "main.1dbfd76b.css.map": "/codestates-fe-advanced-course/static/css/main.1dbfd76b.css.map",
+    "main.25fd99cb.js.map": "/codestates-fe-advanced-course/static/js/main.25fd99cb.js.map",
+    "787.c4e7f8f9.chunk.js.map": "/codestates-fe-advanced-course/static/js/787.c4e7f8f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1dbfd76b.css",
+    "static/js/main.25fd99cb.js"
+  ]
+}
