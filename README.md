@@ -1,6 +1,5 @@
 # codestates-fe-advanced-course
-https://user-images.githubusercontent.com/79837001/181637666-59abd06f-3d1b-4234-bedf-fa032c2a5db9.mp4
-
+https://user-images.githubusercontent.com/79837001/181640621-ad08b3ef-f039-491c-a5bf-9969b6c67d34.mp4
 
 ## 배포 링크
 https://kimjaewon3.github.io/codestates-fe-advanced-course/
@@ -24,6 +23,7 @@ https://kimjaewon3.github.io/codestates-fe-advanced-course/
  - ### 전체 게시글 페이지
    - API에서 게시글 데이터를 받아와 리스트로 표시
    - 페이지네이션
+   - 현재 페이지 강조 표시
    - 페이지당 보여줄 게시글 수 옵션
    - 검색창 (유저 아이디, 게시글 제목)
  - ### 상세 게시글 페이지
@@ -48,7 +48,7 @@ https://kimjaewon3.github.io/codestates-fe-advanced-course/
       end - `start + 페이지당 보여줄 게시글 수`
     - `posts.slice(start, end)`와 같이 게시글을 잘라서 보여줍니다.
   - #### 페이지 개수 갱신<br>
-    `검색으로 인해 표시되는 게시글수가 바뀔때`<br>
+    `검색으로 인해 표시되는 게시글 수가 바뀔때`<br>
     `옵션으로 페이지당 보여줄 게시글 수를 변경했을때`<br>
     - 페이지네이션 컴포넌트에 `props로 전달한 state`와 `useEffect`를 사용해 위 두가지 경우 발생시 페이지 개수가 갱신되도록 합니다.
   - #### 그 밖에 구현시 고려사항
@@ -56,6 +56,7 @@ https://kimjaewon3.github.io/codestates-fe-advanced-course/
       검색등으로 페이지 개수가 변경되면 1페이지부터 다시 보여줍니다.
     - 페이지를 이동하면 제일 위부터 보여줘야 하기 때문에,<br>
       페이지 이동시 게시글 박스의 스크롤이 제일 위로 올라가도록 합니다.
+    - 현재 선택중인 페이지를 식별할 수 있도록 `className`을 주어 강조 표시 합니다.
 - ### 검색
   - 입력받은 값을 state로 저장하고, 표시되는 게시글을 해당 값으로 필터해 보여주었습니다.<br>
     이렇게 하면 입력값에 변동이 생길때마다 즉각적으로 내용이 갱신됩니다.
