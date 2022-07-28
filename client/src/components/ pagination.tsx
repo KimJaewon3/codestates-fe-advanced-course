@@ -26,7 +26,12 @@ export default function Pagination({ contentsCount, postLimit, page, setPage }: 
           </StyledLi>
           {pageCount.map((_, idx) => (
             <StyledLi key={idx}>
-              <button onClick={() => changePage(idx + 1)}>{idx + 1}</button>
+              <button 
+                className={page === (idx + 1) ? 'pagenation-current-page' : ''}
+                onClick={() => changePage(idx + 1)}
+              >
+                {idx + 1}
+              </button>
             </StyledLi>
           ))}
           <StyledLi>
@@ -42,6 +47,9 @@ const StyledPagenation = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  .pagenation-current-page {
+    background-color: #bbbbbb;
+  }
   ul {
     list-style: none;
     display: flex;
