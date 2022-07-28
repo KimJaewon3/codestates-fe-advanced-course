@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Pagination from '../components/ pagination';
@@ -19,18 +19,16 @@ export type SearchValue = {
 
 export default function AllPost() {
   const nav = useNavigate();
-  
   // posts
   const [posts, setPosts] = useState<Post[]>([]);
   const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
-
   // pagination
   const [page, setPage] = useState(1);
   const postLimitOptions = [10, 20, 50, 100];
   const [postLimit, setPostLimit] = useState(10);
   const start = (page - 1) * postLimit;
   const end = start + postLimit;
-
+  const scrollRef = useRef<HTMLDivElement>(null);
   // search
   const [searchValue, setSearchValue] = useState<SearchValue>({
     target: 'title',
@@ -60,6 +58,10 @@ export default function AllPost() {
     setPage(1);
   }, [filteredPosts, postLimit]);
 
+  useEffect(() => {
+    scrollRef.current?.scrollTo(0, 0);
+  }, [page]);
+
   function handlePostClick(post: Post) {
     nav('/detailPost', { state: post });
   }
@@ -76,7 +78,7 @@ export default function AllPost() {
         <SearchBar searchValue={searchValue} setSearchValue={setSearchValue}/>
 
         <label>
-          페이지당 게시글 수
+          페이지당 게시글 수 &nbsp;
           <select onChange={(e) => handlePostLimitOption(e)}>
             {postLimitOptions.map((value, idx) => (
               <option key={idx}>{value}</option>
@@ -85,7 +87,7 @@ export default function AllPost() {
         </label>
       </div>
       
-      <div className='all-post-post-table'>
+      <div className='all-post-post-table' ref={scrollRef}>
         <table>
           <thead>
             <tr>
@@ -93,14 +95,14 @@ export default function AllPost() {
               <th>작성자</th>
             </tr>
           </thead>
-          {filteredPosts.slice(start, end).map(post => (
-            <tbody key={post.id}>
-              <tr>
+          <tbody>
+            {filteredPosts.slice(start, end).map(post => (
+              <tr key={post.id}>
                 <td onClick={() => handlePostClick(post)}>{post.title}</td>
                 <td>작성자 {post.userId}</td>
               </tr>
-            </tbody>
-          ))}
+            ))}
+          </tbody>
         </table>
       </div>
 
@@ -144,6 +146,11 @@ const StyledAllPost = styled.div`
     table {
       width: 100%;
       border-collapse: collapse;
+      thead {
+        position: sticky;
+        top: 0;
+        background-color: #e6e6e6;
+      }
       tr {
         border-bottom: 1px solid #c2c2c2;
         th, td {

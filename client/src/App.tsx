@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <StyledSection>
         <Routes>
           <Route path='/' element={<AllPost/>} />
